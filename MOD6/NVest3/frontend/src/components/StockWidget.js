@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import TradeButtons from '../components/TradeButtons'
 
 class StockWidget extends Component{
 
@@ -13,7 +13,7 @@ class StockWidget extends Component{
         <Col> TOTAL VALUE </Col>
         <Col> UNIT COST </Col>
         <Col> EQUITY </Col>
-        <Col> BUY/SELL </Col>
+        <Col> <TradeButtons/> </Col>
       </Row>
     )
   }
