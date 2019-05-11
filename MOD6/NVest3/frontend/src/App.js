@@ -7,7 +7,7 @@ import StockWidget from '../src/components/StockWidget'
 import Header from '../src/components/Header'
 import ScrollingIndexes from '../src/components/ScrollingIndexes'
 import Dashboard from '../src/components/Dashboard'
-import StocksContainer from '../src/containers/StocksContainer'
+import AccountsContainer from '../src/containers/AccountsContainer'
 import API_key from '../src/secret.js'
 
 class App extends Component {
@@ -16,19 +16,23 @@ class App extends Component {
 
     // consider replacing this with Redux
     this.state = {
-      taxlots: [],
+      user: {},
+      accounts: []
     }
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/taxlots')
+    fetch('http://localhost:3000/investors/5/')
     .then((resp)=> {
       return resp.json()
     })
     .then((data)=> {
       console.log(data);
-      debugger
-      this.setState({taxlots: data})
+      // debugger
+      this.setState({
+        user: data[0],
+        accounts: data[1],
+      })
     })
 
     //GET EXAMPLE ARROW FUNCTION
@@ -50,7 +54,9 @@ class App extends Component {
         <Header/>
         <ScrollingIndexes/>
         <Dashboard/>
-        <StocksContainer/>
+        <AccountsContainer
+          accounts={this.state.accounts}
+          />
       </div>
     )
   }
