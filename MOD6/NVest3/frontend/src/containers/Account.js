@@ -10,13 +10,16 @@ class Account extends Component {
   render(){
     return(
       <Container>
-        <h3> {this.props.acctInfo[0].name}</h3>
+        <h3> {this.props.acctInfo.name}</h3>
         <AccountHeader/>
 
-        {this.props.acctInfo[1] ? this.props.acctInfo[1].map((stock)=>{
+        {this.props.stocks ? this.props.stocks.map((stock)=>{
+          let stock_id = stock.id
+          // debugger
           return(
             <StockWidget
               stockInfo={stock}
+              taxlots={this.props.taxlots.filter(tl => tl.security_id === stock_id)}
             />
           )
         })

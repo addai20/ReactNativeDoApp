@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/investors/5/')
+    fetch('http://localhost:3000/investors/6/')
     .then((resp)=> {
       return resp.json()
     })

@@ -4,14 +4,16 @@ import TradeButtons from '../components/TradeButtons'
 
 class StockWidget extends Component{
 
+
+
   render(){
     return(
       <Row>
-        <Col> SYMBOL </Col>
-        <Col> QTY </Col>
+        <Col> {this.props.stockInfo.symbol.toUpperCase()} </Col>
+        <Col> {this.props.taxlots.map(tl => tl.quantity).reduce((acc, cv) => acc + cv)} </Col>
         <Col> MARKET VALUE </Col>
-        <Col> TOTAL VALUE </Col>
-        <Col> UNIT COST </Col>
+        <Col> UNIT COST</Col>
+        <Col> TOTAL COST </Col>
         <Col> EQUITY </Col>
         <Col> <TradeButtons/> </Col>
       </Row>

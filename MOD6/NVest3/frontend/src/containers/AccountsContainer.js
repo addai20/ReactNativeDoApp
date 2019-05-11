@@ -10,9 +10,12 @@ class AccountsContainer extends Component{
     return(
       <Container>
         {this.props.accounts.map((acct)=> {
+          // debugger
           return (
             <Account
-              acctInfo={acct}
+              acctInfo={acct[0]}
+              stocks={acct[1]}
+              taxlots={acct[2]}
             />
           )
         })}

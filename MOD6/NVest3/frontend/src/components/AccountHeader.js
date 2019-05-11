@@ -8,8 +8,8 @@ class AccountHeader extends Component {
         <Col> SYMBOL </Col>
         <Col> QTY </Col>
         <Col> MARKET VALUE </Col>
-        <Col> TOTAL VALUE </Col>
-        <Col> UNIT COST </Col>
+        <Col> UNIT COST</Col>
+        <Col> TOTAL COST </Col>
         <Col> EQUITY </Col>
         <Col> BUY/SELL </Col>
       </Row>
