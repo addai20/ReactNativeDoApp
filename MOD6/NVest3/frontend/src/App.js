@@ -21,14 +21,26 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/taxlots/')
+    fetch('http://localhost:3000/taxlots')
     .then((resp)=> {
-      resp.json()
+      return resp.json()
     })
     .then((data)=> {
       console.log(data);
+      debugger
       this.setState({taxlots: data})
     })
+
+    //GET EXAMPLE ARROW FUNCTION
+// fetch('http://localhost:3000/taxlots')
+// .then((response)=>{
+//   return response.json()
+// })
+// .then((stocks)=>{
+//   console.log(stocks)
+//   //store stocks in allStocks state
+//   this.setState({allStocks: stocks})
+// })
   }
 
 
