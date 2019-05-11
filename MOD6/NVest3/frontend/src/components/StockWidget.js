@@ -1,0 +1,22 @@
+import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
+
+class StockWidget extends Component{
+
+  render(){
+    return(
+      <Row>
+        <Col> SYMBOL </Col>
+        <Col> QTY </Col>
+        <Col> MARKET VALUE </Col>
+        <Col> TOTAL VALUE </Col>
+        <Col> UNIT COST </Col>
+        <Col> EQUITY </Col>
+        <Col> BUY/SELL </Col>
+      </Row>
+    )
+  }
+}
+
+export default StockWidget
