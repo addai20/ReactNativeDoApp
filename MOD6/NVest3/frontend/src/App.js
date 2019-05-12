@@ -21,6 +21,39 @@ class App extends Component {
     }
   }
 
+
+   isMarketOpen = () =>{
+    // return true if time is between 9:30 and 4 PM
+    let now = new Date()
+    let hours = now.getHours()
+    let minutes = now.getMinutes()
+
+    //needs to show "Market Closed on Sundays"
+
+    if(hours === 9 && minutes >= 30){
+      return true;
+    }else if (hours > 9 && hours < 16) {
+      return true
+    }else{
+      return false
+    }
+    //
+  }
+
+  marketStatus = () =>{
+
+    let message;
+    if (this.isMarketOpen()){
+      message = "Markets: OPEN"
+    }else{
+      message = "Markets: CLOSED"
+    }
+
+    return message
+  }
+
+
+
   componentDidMount(){
     fetch('http://localhost:3000/investors/6/')
     .then((resp)=> {
@@ -51,7 +84,9 @@ class App extends Component {
   render(){
     return(
       <div className="App">
-        <Header/>
+        <Header
+          marketStatus={this.marketStatus}
+          />
         <ScrollingIndexes/>
         <Dashboard/>
         <AccountsContainer

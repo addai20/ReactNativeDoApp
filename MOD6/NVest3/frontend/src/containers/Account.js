@@ -7,11 +7,32 @@ import StockWidget from '../components/StockWidget'
 
 class Account extends Component {
 
+  constructor(){
+    super()
+
+    this.state = {
+      realTimeData : []
+    }
+  }
+
+  componentDidMount(){
+    //fetch from finance api
+    //update realTimeData state with current stock values
+      //can realTimeData be an array of objects?
+      //capture most recent closing price if after market hours?
+        //does API have after hours stock values?
+
+  }
+
+
+
   render(){
     return(
+      <div>
       <Container>
         <h3> {this.props.acctInfo.name}</h3>
         <AccountHeader/>
+        <br/>
 
         {this.props.stocks ? this.props.stocks.map((stock)=>{
           let stock_id = stock.id
@@ -28,6 +49,9 @@ class Account extends Component {
 
 
       </Container>
+      <br/>
+      </div>
+
     )
   }
 
