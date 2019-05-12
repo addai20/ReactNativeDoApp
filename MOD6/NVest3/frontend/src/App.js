@@ -17,9 +17,19 @@ class App extends Component {
     // consider replacing this with Redux
     this.state = {
       user: {},
-      accounts: []
+      accounts: [],
     }
   }
+
+  // getTotalAssets = () =>{
+  //   // get accounts
+  //   let acctsArr = this.state.accounts
+  //
+  //   map through accounts and get
+  //   let acctsArr.map((acct)=>{
+  //     return acct.
+  //   })
+  // }
 
 
    isMarketOpen = () =>{
@@ -65,6 +75,7 @@ class App extends Component {
       this.setState({
         user: data[0],
         accounts: data[1],
+        available_cash: data[0].available_cash,
       })
     })
 
@@ -88,7 +99,9 @@ class App extends Component {
           marketStatus={this.marketStatus}
           />
         <ScrollingIndexes/>
-        <Dashboard/>
+        <Dashboard
+          cash={this.state.user.available_cash}
+          />
         <AccountsContainer
           accounts={this.state.accounts}
           />

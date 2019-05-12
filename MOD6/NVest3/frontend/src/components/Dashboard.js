@@ -7,7 +7,7 @@ class Dashboard extends Component {
     return(
       <Container>
         <Row>
-          <Col>Available Cash: <h2>$100,000</h2></Col>
+          <Col>Available Cash: <h2>${this.props.cash}</h2></Col>
           <Col>Total Assets: <h2>$1,200,000</h2></Col>
         </Row>
       </Container>
