@@ -7,7 +7,7 @@ class StockWidget extends Component{
 
   render(){
 
-    let symbol = this.props.stockInfo.symbol.toUpperCase()
+    let symbol = this.props.stock.symbol.toUpperCase()
     let qty = this.props.taxlots.map(tl => tl.quantity).reduce((acc, cv) => acc + cv)
     let mv;
     let price = this.props.taxlots.map(tl => tl.price).reduce((acc, cv) => acc + cv)
@@ -17,10 +17,16 @@ class StockWidget extends Component{
       <Row>
         <Col> <a> {symbol} </a> </Col>
         <Col> {qty} </Col>
-        <Col> MARKET VALUE </Col>
+        <Col> ... </Col>
         <Col> ${price} </Col>
-        <Col> EQUITY </Col>
-        <Col> <TradeButtons/> </Col>
+        <Col> ... </Col>
+        <Col>
+          <TradeButtons
+            stock={this.props.stock}
+            buyStocks={this.props.buyStocks}
+            sellStocks={this.props.sellStocks}
+          />
+        </Col>
       </Row>
     )
   }

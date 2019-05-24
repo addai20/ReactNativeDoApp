@@ -13,9 +13,12 @@ class AccountsContainer extends Component{
           // debugger
           return (
             <Account
+              key={acct[0].id}
               acctInfo={acct[0]}
               stocks={acct[1]}
               taxlots={acct[2]}
+              buyStocks={this.props.buyStocks}
+              sellStocks={this.props.sellStocks}
             />
           )
         })}

@@ -16,6 +16,8 @@ class Account extends Component {
   }
 
   componentDidMount(){
+
+    // THIS MAY NOT BE NEEDED! FETCHTING STOCKS FROM SECURITIES INDEX IN APP.JS
     //fetch from finance api
     //update realTimeData state with current stock values
       //can realTimeData be an array of objects?
@@ -23,8 +25,6 @@ class Account extends Component {
         //does API have after hours stock values?
 
   }
-
-
 
   render(){
     return(
@@ -39,8 +39,11 @@ class Account extends Component {
           // debugger
           return(
             <StockWidget
-              stockInfo={stock}
+              key={stock.id}
+              stock={stock}
               taxlots={this.props.taxlots.filter(tl => tl.security_id === stock_id)}
+              buyStocks={this.props.buyStocks}
+              sellStocks={this.props.sellStocks}
             />
           )
         })

@@ -9,6 +9,7 @@ import ScrollingIndexes from '../src/components/ScrollingIndexes'
 import Dashboard from '../src/components/Dashboard'
 import AccountsContainer from '../src/containers/AccountsContainer'
 import API_key from '../src/secret.js'
+import ReactTimeout from 'react-timeout'
 
 class App extends Component {
   constructor(){
@@ -18,19 +19,37 @@ class App extends Component {
     this.state = {
       user: {},
       accounts: [],
+      symbols: [],
+      currentModal: null,
+      selectedStock: {},
+      stockObjects: null,
+
     }
   }
 
-  // getTotalAssets = () =>{
-  //   // get accounts
-  //   let acctsArr = this.state.accounts
-  //
-  //   map through accounts and get
-  //   let acctsArr.map((acct)=>{
-  //     return acct.
-  //   })
-  // }
+  toggleAlerts = () =>{
+    console.log("toggleAlerts Invoked!");
+  }
 
+  getTotalAssets = (obj) =>{
+    // get accounts
+    let acctsArr = obj[1]
+    let result;
+
+    if(obj[1] === undefined){
+      return null
+    }
+    // map through accounts and get
+    let symbolsArr = acctsArr.map((acct)=>{
+      // debugger
+      if(acct[1].length === 0){
+        return null
+      } else{
+        return acct[1].map(stocks => stocks.symbol)
+      }
+    })
+
+  }
 
    isMarketOpen = () =>{
     // return true if time is between 9:30 and 4 PM
@@ -62,22 +81,81 @@ class App extends Component {
     return message
   }
 
+  initialStockDataFetch = () => {
+    // should use setTimeout to refresh stock data and news every 30 seconds
+    setInterval(()=>this.getStockObjects(), 5000)
+    // this.getStockObjects()
+  }
+
+  getStockObjects = () => {
+    let symbolsStr = this.state.symbols.join(`,`)
+    // debugger
+    //YOU MAY HAVE TO FETCH STOCK DATA FROM RAILS BACKEND INSTEAD OF REACT FRONTEND
+    let base = `https://cloud.iexapis.com/stable/stock/market/batch?symbols=${symbolsStr}&types=quote,news,chart&range=1m&last=5&token=${API_key}`
+
+    fetch(base+API_key)
+    .then((resp)=>{
+      debugger
+      return resp.json()
+    })
+    .then((objects)=>{
+      this.setState({stockObjects : objects})
+      console.log(objects);
+    })
+
+  }
+
+  buyStocks = (stock) => {
+    console.log(`buyStocks method invoked for: ${stock}!`);
+  }
+
+
+  sellStocks = (stock) => {
+    console.log(`sellStocks method invoked for: ${stock}!`);
+  }
+
 
 
   componentDidMount(){
-    fetch('http://localhost:3000/investors/6/')
-    .then((resp)=> {
-      return resp.json()
-    })
-    .then((data)=> {
+    // use promise.all to fetch the securities from http://localhost:3000/securities
+    Promise.all([
+      fetch('http://localhost:3000/investors/7/'),
+      fetch('http://localhost:3000/securities/')
+    ])
+    .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+    .then(([data, allStocks]) => {
       console.log(data);
-      // debugger
-      this.setState({
+      console.log(allStocks);
+      let allSymbols = allStocks.map(stock=> stock.symbol)
+      return this.setState({
         user: data[0],
         accounts: data[1],
         available_cash: data[0].available_cash,
+        symbols: allSymbols
       })
     })
+
+
+    // this.initialStockDataFetch()
+
+    // fetch('http://localhost:3000/investors/6/')
+    // .then((resp)=> {
+    //   return resp.json()
+    // })
+    // .then((data)=> {
+    //   console.log(data);
+    //   // debugger
+    //   let allSymbols = this.getTotalAssets(data)
+    //   // debugger
+    //   this.setState({
+    //     user: data[0],
+    //     accounts: data[1],
+    //     available_cash: data[0].available_cash,
+    //     symbols: allSymbols,
+    //   })
+    //
+    //   // this.getTotalAssets()
+    // })
 
     //GET EXAMPLE ARROW FUNCTION
 // fetch('http://localhost:3000/taxlots')
@@ -103,6 +181,8 @@ class App extends Component {
           cash={this.state.user.available_cash}
           />
         <AccountsContainer
+          buyStocks={this.buyStocks}
+          sellStocks={this.sellStocks}
           accounts={this.state.accounts}
           />
       </div>

@@ -11,6 +11,7 @@
     "react-iframe": "^1.8.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
+    "react-timeout": "^1.2.0",
     "semantic-ui": "^2.4.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.86.0"
