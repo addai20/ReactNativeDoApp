@@ -10,6 +10,7 @@ import Dashboard from '../src/components/Dashboard'
 import AccountsContainer from '../src/containers/AccountsContainer'
 import API_key from '../src/secret.js'
 import ReactTimeout from 'react-timeout'
+import NewsModal from '../src/components/NewsModal'
 
 class App extends Component {
   constructor(){
@@ -21,6 +22,8 @@ class App extends Component {
       accounts: [],
       symbols: [],
       currentModal: null,
+      stockNews: null,
+      showStockNews: false,
       selectedStock: {},
       stockObjects: null,
 
@@ -106,13 +109,50 @@ class App extends Component {
   }
 
   buyStocks = (stock) => {
+    debugger
     console.log(`buyStocks method invoked for: ${stock}!`);
+    fetch(`https://cloud.iexapis.com/stable/stock/market/batch?symbols=${stock}&types=quote,news,chart&range=1m&last=5&token=${API_key}`)
+    .then((resp)=> {
+      return resp.json()
+    })
+    .then((data)=>{
+      this.setState({selectedStock: data})
+    })
   }
 
 
   sellStocks = (stock) => {
     console.log(`sellStocks method invoked for: ${stock}!`);
   }
+
+  showNewsModal = (stock) => {
+    console.log(`showNewsModal method invoked for: ${stock}`);
+    // fetch news data for specific stock
+    // set state of the news modal via stock news
+
+    fetch(`https://cloud.iexapis.com/stable/stock/market/batch?symbols=amzn&types=quote,news,chart&range=1m&last=5&token=pk_72911ae29fff44d0884ff40f905f7cdb`)
+    .then((resp) => {
+      return resp.json()
+    })
+    .then((news)=>{
+      console.log('news');
+      return this.setState({stockNews: news})
+    })}
+
+/////////////////
+    //GET EXAMPLE ARROW FUNCTION
+// fetch('http://localhost:3000/stocks')
+// .then((response)=>{
+//   return response.json()
+// })
+// .then((stocks)=>{
+//   console.log(stocks)
+//   //store stocks in allStocks state
+//   this.setState({allStocks: stocks})
+// })
+
+
+////////////////
 
 
 
@@ -181,6 +221,8 @@ class App extends Component {
           cash={this.state.user.available_cash}
           />
         <AccountsContainer
+          stockNews={this.state.stockNews}
+          showNewsModal={this.showNewsModal}
           buyStocks={this.buyStocks}
           sellStocks={this.sellStocks}
           accounts={this.state.accounts}

@@ -39,6 +39,7 @@ class Account extends Component {
           // debugger
           return(
             <StockWidget
+              showNewsModal={this.props.showNewsModal}
               key={stock.id}
               stock={stock}
               taxlots={this.props.taxlots.filter(tl => tl.security_id === stock_id)}

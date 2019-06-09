@@ -15,7 +15,7 @@ class StockWidget extends Component{
 
     return(
       <Row>
-        <Col> <a> {symbol} </a> </Col>
+        <Col onClick={()=> this.props.showNewsModal(symbol)}> <a> {symbol} </a> </Col>
         <Col> {qty} </Col>
         <Col> ... </Col>
         <Col> ${price} </Col>

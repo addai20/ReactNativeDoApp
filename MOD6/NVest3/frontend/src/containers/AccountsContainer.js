@@ -13,6 +13,7 @@ class AccountsContainer extends Component{
           // debugger
           return (
             <Account
+              showNewsModal={this.props.showNewsModal}
               key={acct[0].id}
               acctInfo={acct[0]}
               stocks={acct[1]}
