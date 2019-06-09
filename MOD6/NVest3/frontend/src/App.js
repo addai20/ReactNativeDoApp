@@ -130,12 +130,12 @@ class App extends Component {
     // fetch news data for specific stock
     // set state of the news modal via stock news
 
-    fetch(`https://cloud.iexapis.com/stable/stock/market/batch?symbols=amzn&types=quote,news,chart&range=1m&last=5&token=pk_72911ae29fff44d0884ff40f905f7cdb`)
+    fetch(`https://cloud.iexapis.com/stable/stock/market/batch?symbols=${stock}&types=quote,news,chart&range=1m&last=5&token=pk_72911ae29fff44d0884ff40f905f7cdb`)
     .then((resp) => {
       return resp.json()
     })
     .then((news)=>{
-      console.log('news');
+      console.log(news);
       return this.setState({stockNews: news})
     })}
 
